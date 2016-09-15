@@ -1,0 +1,91 @@
+﻿<Page x:Class="QCBE.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:units1="using:QCBE.UserControls"
+      DataContext="{Binding MainViewModel,
+                            Source={StaticResource vmLocator}}"
+      mc:Ignorable="d">
+
+
+
+    <Pivot Title="Administator" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Pivot.Items>
+            <PivotItem Header="Units">
+                <Grid>
+                    <units1:UnitsControl />
+
+
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="Items">
+                <Grid>
+                    <TextBlock Text="Content of pivot 2" />
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="ReSource">
+                <Grid />
+            </PivotItem>
+            <PivotItem Header="Res-Comp.">
+                <Grid>
+                    <TextBlock Text="Content of pivot 4" />
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="% Head">
+                <Grid>
+                    <TextBlock Text="Content of pivot 5" />
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="% Comp.">
+                <Grid>
+                    <TextBlock Text="Content of pivot 6" />
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="Stages">
+                <Grid>
+                    <TextBlock Text="Content of pivot 7" />
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="Parameter">
+                <Grid>
+                    <TextBlock Text="Content of pivot 8" />
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="Questions">
+                <Grid>
+                    <TextBlock Text="Content of pivot 9" />
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="LookUp">
+                <Grid>
+                    <TextBlock Text="Content of pivot 10" />
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="Pre Proc">
+                <Grid>
+                    <TextBlock Text="Content of pivot 11" />
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="Item Eq">
+                <Grid>
+                    <TextBlock Text="Content of pivot 12" />
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="Buid Def">
+                <Grid>
+                    <TextBlock Text="Content of pivot 13" />
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="Export/Import">
+                <Grid>
+                    <TextBlock Text="Content of pivot 14" />
+                </Grid>
+            </PivotItem>
+        </Pivot.Items>
+    </Pivot>
+
+
+</Page>

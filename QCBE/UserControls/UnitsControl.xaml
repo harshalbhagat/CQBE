@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="QCBE.UserControls.UnitsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:data="using:WinRTXamlToolkit.Controls.Data"
+             xmlns:i="using:Microsoft.Xaml.Interactivity"
+             xmlns:local="using:QCBE.UserControls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:tvTemplete="using:CQBE.Models"
+             xmlns:xc="using:WinRTXamlToolkit.Controls"
+             DataContext="{Binding Path=UnitsControlViewModel,
+                                   Source={StaticResource vmLocator}}"
+             mc:Ignorable="d">
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid BorderBrush="Gray" BorderThickness="2" Margin="10">
+            <xc:TreeView Name="trvMenu" 
+                         ItemsSource="{Binding Units,Mode=TwoWay}" 
+                         SelectedItemChanged="trvMenu_SelectedItemChanged">
+                <xc:TreeView.ItemTemplate>
+                    <DataTemplate>
+                        <!--<data:DataTemplateExtensions.Hierarchy>
+                            <data:HierarchicalDataTemplate ItemsSource="{Binding Unit}" />
+                        </data:DataTemplateExtensions.Hierarchy>-->
+                        <TextBlock Text="{Binding xName}" >
+                            <!--<i:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="Tapped">
+                        <core:InvokeCommandAction Command="{Binding SelectedItem}" ></core:InvokeCommandAction>
+                    </core:EventTriggerBehavior>
+                </i:Interaction.Behaviors>-->
+                        </TextBlock>
+
+                    </DataTemplate>
+                </xc:TreeView.ItemTemplate>
+                <!--<i:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="SelectedItemChanged">
+                        <core:InvokeCommandAction Command="{Binding Add}" ></core:InvokeCommandAction>
+                    </core:EventTriggerBehavior>
+                </i:Interaction.Behaviors>-->
+
+            </xc:TreeView>
+
+        </Grid>
+        <Grid Margin="10"
+              Padding="10" Grid.Column="1" BorderBrush="Gray" BorderThickness="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" VerticalAlignment="Center">
+                <TextBlock Text="Unit Name (Matric)" />
+                <TextBox Text="{Binding Metric, Mode=TwoWay}" />
+                <TextBlock Text="Unit Name (Feet)" />
+                <TextBox Text="{Binding Feet, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Grid.Row="1" VerticalAlignment="Center">
+                <Button Width="250"
+                        Margin="10,10,10,10"
+                        HorizontalAlignment="Center"
+                         Command="{Binding Add}">
+
+                    Add
+                </Button>
+                <Button Width="250"
+                        Margin="10,10,10,10"
+                        HorizontalAlignment="Center"
+                        Command="{Binding Update}">
+                    Update
+                </Button>
+                <Button Width="250"
+                        Margin="10,10,10,10"
+                        HorizontalAlignment="Center"
+                        Command="{Binding Delete}">
+                    Delete
+                </Button>
+                <Button Width="250"
+                        Margin="10,10,10,10"
+                        HorizontalAlignment="Center"
+                        Command="{Binding Up}">
+                    Up
+                </Button>
+                <Button Width="250"
+                        Margin="10,10,10,10"
+                        HorizontalAlignment="Center"
+                        Command="{Binding Down}">
+                    Down
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
