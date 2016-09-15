@@ -14,18 +14,9 @@ namespace QCBE.ViewModel
 {
     public class UnitsControlViewModel : BaseViewModel, INotifyPropertyChanged
     {
-       
-
         public UnitsControlViewModel()
         {
-            
-
-            //Units.Add(new Unit() { Feet = "Dummy1", Metric = @"C:\dummy1", Unit = new List<Units> { new Units() { Metric = "M1", Feet = "F@" }, new Units() { Metric = "M2", Feet = "F2" } } });
-            //Units.Add(new Unit { Feet = "Dummy2", Metric = @"C:\dummy2" });
-            //Units.Add(new Unit { Feet = "Dummy3", Metric = @"C:\dummy3" });
         }
-
-
 
         public Unit SelectedItemValue { get; set; }
 
@@ -60,10 +51,6 @@ namespace QCBE.ViewModel
                 RaisePropertyChanged(UnitsPropertyName);
             }
         }
-            
-
-
-        
 
         /// <summary>
         /// The <see cref="Metric" /> property's name.
@@ -95,8 +82,6 @@ namespace QCBE.ViewModel
             }
         }
 
-
-
         /// <summary>
         /// The <see cref="Feet"/> property's name.
         /// </summary>
@@ -126,9 +111,6 @@ namespace QCBE.ViewModel
                 RaisePropertyChanged(FeetPropertyName);
             }
         }
-
-
-       
 
         private RelayCommand _add;
 
