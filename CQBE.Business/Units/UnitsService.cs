@@ -39,7 +39,7 @@ namespace CQBE.Business.Units
             if (xLst.Count == 0) return 100001;
             return Convert.ToInt32(xLst[xLst.Count - 1].xSeqNo) + 1;
         }
-        
+
 
         // Tested and working fine.
         public UnitResult xAdd(Unit xTemp, ObservableCollection<Unit> Units)
@@ -67,12 +67,12 @@ namespace CQBE.Business.Units
 
         public UnitResult xUpDate(Unit xTemp, Unit xNew, ObservableCollection<Unit> Units)
         {
-            
+
 
             var result = Units.FirstOrDefault(p => p.xId == xTemp.xId);
             Int32 xInd = Units.IndexOf(result);
 
-           
+
             xTemp.xNameFt = xNew.xNameFt;
             xTemp.xName = xNew.xName;
             if (Units.Contains<Unit>(xTemp))
@@ -85,7 +85,7 @@ namespace CQBE.Business.Units
                 Units.Insert(xInd, xTemp);
                 return UnitResult.Success;
             }
-            
+
         }
 
         public UnitResult xDelete(string xId, ObservableCollection<Unit> Units)
@@ -99,15 +99,15 @@ namespace CQBE.Business.Units
                 if (Units.Count(x => x.xId == xId) > 1)
                 {
                     Units.Remove(result);
-                  return  UnitResult.Success;
+                    return UnitResult.Success;
                 }
-               
+
             }
             catch { }
             return UnitResult.Failed;
         }
 
-       
+
 
         public UnitResult xGetList(ObservableCollection<Unit> Units)
         {
@@ -123,61 +123,88 @@ namespace CQBE.Business.Units
             return UnitResult.Failed;
         }
 
-        public UnitResult UpOrDown(Unit xTemp, bool MoveUp, ObservableCollection<Unit> Units)
+        //public UnitResult UpOrDown(Unit xTemp, bool MoveUp, ObservableCollection<Unit> Units)
+        //{
+
+        //    if (MoveUp)
+        //    {
+
+
+        //    }
+        //    else
+        //    {
+        //        if (Units.Count == 1)
+        //        {
+        //            return UnitResult.UnitAtTopPosition;
+        //        }
+        //       else
+        //        {
+        //            if (xInd == 0)
+        //            {
+        //                return UnitResult.UnitAtTopPosition;
+        //            }
+        //            else
+        //            {
+        //                var temp1 = Units.ElementAt(xInd);
+        //                var temp2 = Units.ElementAt(xInd + 1);
+        //                Units.RemoveAt(xInd);
+        //                Units.RemoveAt(xInd + 1);
+
+        //                Units.Insert(xInd, temp2);
+        //                Units.Insert(xInd + 1, temp1);
+        //                return UnitResult.Success;
+        //            }
+        //        }
+        //    }
+
+        //}
+
+        public UnitResult xMoveUp(Unit xTemp, ObservableCollection<Unit> Units)
         {
             int xInd = Units.IndexOf(xTemp);
-            if (MoveUp)
+
+            if (Units.Count == 1)
             {
-                if (Units.Count == 1)
-                {
-                    return UnitResult.UnitAtTopPosition;
-                }
-                else 
-                {
-                    if (xInd == 0)
-                    {
-                        return UnitResult.UnitAtTopPosition;
-                    }
-                    else
-                    {
-                        var temp1 = Units.ElementAt(xInd);
-                        var temp2 = Units.ElementAt(xInd - 1);
-                        Units.RemoveAt(xInd);
-                        Units.RemoveAt(xInd - 1);
-
-                        Units.Insert(xInd, temp2);
-                        Units.Insert(xInd - 1, temp1);
-                        return UnitResult.Success;
-                    }
-                }
-
+                return UnitResult.UnitAtTopPosition;
             }
             else
             {
-                if (Units.Count == 1)
+                if (xInd == 0)
                 {
                     return UnitResult.UnitAtTopPosition;
                 }
-               else
+                else
                 {
-                    if (xInd == 0)
-                    {
-                        return UnitResult.UnitAtTopPosition;
-                    }
-                    else
-                    {
-                        var temp1 = Units.ElementAt(xInd);
-                        var temp2 = Units.ElementAt(xInd + 1);
-                        Units.RemoveAt(xInd);
-                        Units.RemoveAt(xInd + 1);
-
-                        Units.Insert(xInd, temp2);
-                        Units.Insert(xInd + 1, temp1);
-                        return UnitResult.Success;
-                    }
+                    var old = Units[xInd - 1];
+                    Units[xInd - 1] = Units[xInd];
+                    Units[xInd] = old;
+                    return UnitResult.Success;
                 }
             }
-           
+        }
+
+        public UnitResult xMoveDown(Unit xTemp, ObservableCollection<Unit> Units)
+        {
+            int xInd = Units.IndexOf(xTemp);
+
+            if (Units.Count == 1 || Units.Count == xInd)
+            {
+                return UnitResult.UnitAtBottomPosition;
+            }
+            else
+            {
+                if (xInd == 0)
+                {
+                    return UnitResult.UnitAtBottomPosition;
+                }
+                else
+                {
+                    var old = Units[xInd + 1];
+                    Units[xInd + 1] = Units[xInd];
+                    Units[xInd] = old;
+                    return UnitResult.Success;
+                }
+            }
         }
         //public String xAdd(Unit xTemp)
         //{

@@ -25,11 +25,11 @@ namespace QCBE.ViewModel
         //public ObservableCollection<Unit> Units { set; get; }
 
         /// <summary>
-            /// The <see cref="Units" /> property's name.
-            /// </summary>
+        /// The <see cref="Units" /> property's name.
+        /// </summary>
         public const string UnitsPropertyName = "Units";
 
-        private ObservableCollection<Unit> _units ;
+        private ObservableCollection<Unit> _units;
 
         /// <summary>
         /// Sets and gets the Units property.
@@ -127,13 +127,13 @@ namespace QCBE.ViewModel
                     ?? (_add = new RelayCommand(
                     () =>
                     {
-                      UnitResult result =  UnitsService.xAdd(new Unit() { xName = Metric, xNameFt = Feet },Units);
-                        if (UnitResult.UnitsAlreadyExist==result)
+                        UnitResult result = UnitsService.xAdd(new Unit() { xName = Metric, xNameFt = Feet }, Units);
+                        if (UnitResult.UnitsAlreadyExist == result)
                         {
                             DialogService.ShowError("Unit Name already exist in list.", "Dublicate Unit Name", "Ok", null);
                             return;
                         }
-                        
+
                         Metric = string.Empty;
                         Feet = string.Empty;
                     }));
@@ -163,14 +163,14 @@ namespace QCBE.ViewModel
                         }
                         else
                         {
-                          UnitResult result =   UnitsService.xUpDate(SelectedItemValue,new Unit() {xNameFt=Feet,xName=Metric }, Units);
+                            UnitResult result = UnitsService.xUpDate(SelectedItemValue, new Unit() { xNameFt = Feet, xName = Metric }, Units);
                             if (result == UnitResult.UnitsAlreadyExist)
                             {
                                 DialogService.ShowError("Unit Name already exist in list.", "Dublicate Unit Name", "Ok", null);
                             }
                         }
 
-                       
+
 
                     }));
             }
@@ -189,8 +189,15 @@ namespace QCBE.ViewModel
                     ?? (_delete = new RelayCommand(
                     () =>
                     {
-                        UnitsService.xDelete(SelectedItemValue, Units);
-                        
+                        if (SelectedItemValue == null)
+                        {
+                            DialogService.ShowError("Please Select the Units for the updated", "No Item Selected", "Ok", null);
+                        }
+                        else
+                        {
+                            UnitsService.xDelete(SelectedItemValue, Units);
+                        }
+
                     }));
             }
         }
@@ -208,8 +215,12 @@ namespace QCBE.ViewModel
                     ?? (_up = new RelayCommand(
                     () =>
                     {
-                        UnitsService.UpOrDown(SelectedItemValue, false, Units);
+                     UnitResult   result =   UnitsService.xMoveUp(SelectedItemValue, Units);
 
+                        if (result == UnitResult.UnitAtTopPosition)
+                        {
+                            DialogService.ShowError("Unit is alreday at top position.", "Unit at top Position.", "Ok", null);
+                        }
                     }));
             }
         }
@@ -227,8 +238,13 @@ namespace QCBE.ViewModel
                     ?? (_down = new RelayCommand(
                     () =>
                     {
-                        UnitsService.UpOrDown(SelectedItemValue, true, Units);
-                       
+                        UnitResult result = UnitsService.xMoveDown(SelectedItemValue, Units);
+
+                        if (result == UnitResult.UnitAtBottomPosition)
+                        {
+                            DialogService.ShowError("Unit is alreday at bottom position.", "Unit at bottom Position.", "Ok", null);
+                        }
+
                     }));
             }
         }

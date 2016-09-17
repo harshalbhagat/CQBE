@@ -14,7 +14,8 @@ namespace CQBE.Business.Units
         UnitResult xAdd(Unit xTemp, ObservableCollection<Unit> Units);
         UnitResult xUpDate(Unit xTemp, Unit xNew, ObservableCollection<Unit> Units);
         UnitResult xDelete(Unit xTemp, ObservableCollection<Unit> Units);
-        UnitResult UpOrDown(Unit xTemp, bool MoveUp, ObservableCollection<Unit> Units);
+        UnitResult xMoveUp(Unit xTemp, ObservableCollection<Unit> Units);
+        UnitResult xMoveDown(Unit xTemp, ObservableCollection<Unit> Units);
         UnitResult xGetList(ObservableCollection<Unit> Units);
 
     }
