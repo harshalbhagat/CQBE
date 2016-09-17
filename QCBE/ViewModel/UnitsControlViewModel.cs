@@ -1,4 +1,5 @@
-﻿using CQBE.Models;
+﻿using CQBE.Common.Types;
+using CQBE.Models;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 
@@ -16,6 +17,7 @@ namespace QCBE.ViewModel
     {
         public UnitsControlViewModel()
         {
+            Units = new ObservableCollection<Unit>();
         }
 
         public Unit SelectedItemValue { get; set; }
@@ -125,8 +127,13 @@ namespace QCBE.ViewModel
                     ?? (_add = new RelayCommand(
                     () =>
                     {
-                        UnitsService.xAdd(new Unit() { xName = Metric, xNameFt = Feet });
-                        Units = new ObservableCollection<Unit>(UnitsService.GetUnitList());
+                      UnitResult result =  UnitsService.xAdd(new Unit() { xName = Metric, xNameFt = Feet },Units);
+                        if (UnitResult.UnitsAlreadyExist==result)
+                        {
+                            DialogService.ShowError("Unit Name already exist in list.", "Dublicate Unit Name", "Ok", null);
+                            return;
+                        }
+                        
                         Metric = string.Empty;
                         Feet = string.Empty;
                     }));
@@ -150,12 +157,20 @@ namespace QCBE.ViewModel
                         {
                             DialogService.ShowError("Please Select the Units for the updated", "No Item Selected", "Ok", null);
                         }
+                        else if (SelectedItemValue.xName == Metric && SelectedItemValue.xNameFt == Feet)
+                        {
+                            DialogService.ShowError("You have not updated the value.", "No Updated happend.", "Ok", null);
+                        }
                         else
                         {
-                            UnitsService.xUpDate(SelectedItemValue);
+                          UnitResult result =   UnitsService.xUpDate(SelectedItemValue,new Unit() {xNameFt=Feet,xName=Metric }, Units);
+                            if (result == UnitResult.UnitsAlreadyExist)
+                            {
+                                DialogService.ShowError("Unit Name already exist in list.", "Dublicate Unit Name", "Ok", null);
+                            }
                         }
 
-                        Units = new ObservableCollection<Unit>(UnitsService.GetUnitList());
+                       
 
                     }));
             }
@@ -174,8 +189,8 @@ namespace QCBE.ViewModel
                     ?? (_delete = new RelayCommand(
                     () =>
                     {
-                        UnitsService.xDelete(SelectedItemValue.xId);
-                        Units = new ObservableCollection<Unit>(UnitsService.GetUnitList());
+                        UnitsService.xDelete(SelectedItemValue, Units);
+                        
                     }));
             }
         }
@@ -193,8 +208,8 @@ namespace QCBE.ViewModel
                     ?? (_up = new RelayCommand(
                     () =>
                     {
-                        UnitsService.UpOrDown(SelectedItemValue.xId, false);
-                        Units = new ObservableCollection<Unit>(UnitsService.GetUnitList());
+                        UnitsService.UpOrDown(SelectedItemValue, false, Units);
+
                     }));
             }
         }
@@ -212,8 +227,8 @@ namespace QCBE.ViewModel
                     ?? (_down = new RelayCommand(
                     () =>
                     {
-                        UnitsService.UpOrDown(SelectedItemValue.xId, true);
-                        Units = new ObservableCollection<Unit>(UnitsService.GetUnitList());
+                        UnitsService.UpOrDown(SelectedItemValue, true, Units);
+                       
                     }));
             }
         }
